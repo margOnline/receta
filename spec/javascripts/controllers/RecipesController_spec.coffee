@@ -4,8 +4,6 @@ describe "RecipesController", ->
   location      = null
   routeParams   = null
   resource      = null
-
-  #access injected service later
   httpBackend   = null
 
   setupController =(keywords,results)->
@@ -13,10 +11,9 @@ describe "RecipesController", ->
       scope       = $rootScope.$new()
       location    = $location
       resource    = $resource
+      httpBackend = $httpBackend
       routeParams = $routeParams
       routeParams.keywords = keywords
-
-      httpBackend = $httpBackend
 
       if results
         request = new RegExp("\/recipes.*keywords=#{keywords}")
@@ -31,7 +28,7 @@ describe "RecipesController", ->
 
   afterEach ->
     httpBackend.verifyNoOutstandingExpectation()
-    httpBackend.verifyNoOutstandingResponse()
+    httpBackend.verifyNoOutstandingRequest()
 
   describe 'controller initialization', ->
     describe 'when no keywords present', ->
